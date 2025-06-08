@@ -22,12 +22,28 @@ TELEGRAM_TOKEN=your_telegram_bot_token
   docker-compose up --build
 ```
 
-### 3. Swagger 
+### 3. Запуск локально без контейнеризации
+Установите зависимости из requirements.txt. Как и в предыдущем пункте создайте .env cо своим токеном бота. Далее потребуется в этом .env закомментировать строчку 
+
+`API_URL=http://api:8000`  
+
+и раскомментить
+
+`#API_URL=http://localhost:8000 # for local run without docker`
+
+Далее, 
+
+```bash
+    uvicorn app.main:app  --reload
+    python bot/bot.py
+```
+Должно зарабоать! 
+### 4. Swagger 
 После запуска документация должна быть доступна по http://localhost:8000/docs#/ 
 
 ![Пример](https://github.com/Ermachok/TGbot_for_posting/blob/main/pictures/Screenshot%20from%202025-06-08%2020-22-17.png)
 
-### 3. Bot
+### 5. Bot
 Пример работы бота:
 
 ![Пример](https://github.com/Ermachok/TGbot_for_posting/blob/main/pictures/Screenshot%20from%202025-06-08%2020-12-01.png)
