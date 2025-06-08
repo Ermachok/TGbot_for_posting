@@ -30,7 +30,11 @@ async def post_detail_handler(update: Update, context: ContextTypes.DEFAULT_TYPE
 
 
 async def invalid_input_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "Пожалуйста, выбери пост, используя кнопки выше"
-    )
+    await update.message.reply_text("Пожалуйста, выбери пост, используя кнопки выше")
     return BotStates.POST_CHOICE
+
+
+async def unknown_text_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Я пока не понимаю это сообщение. Используй команду /start или /posts."
+    )

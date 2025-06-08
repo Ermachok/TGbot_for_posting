@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from handlers import (invalid_input_handler, post_detail_handler,
-                      posts_handler, start_handler)
+                      posts_handler, start_handler, unknown_text_handler)
 from middlewares import setup_logging
 from states import BotStates
 from telegram.ext import (ApplicationBuilder, CallbackQueryHandler,
@@ -18,6 +18,10 @@ def main():
     app = ApplicationBuilder().token(token).build()
 
     app.add_handler(CommandHandler("start", start_handler))
+
+    app.add_handler(
+        MessageHandler(filters.TEXT & ~filters.COMMAND, unknown_text_handler)
+    )
 
     post_conv = ConversationHandler(
         entry_points=[CommandHandler("posts", posts_handler)],
