@@ -25,10 +25,12 @@ TELEGRAM_TOKEN=your_telegram_bot_token
 ### 3. Swagger 
 После запуска документация должна быть доступна по http://localhost:8000/docs#/ 
 
-Пример
+![Пример](https://github.com/Ermachok/TGbot_for_posting/blob/main/pictures/Screenshot%20from%202025-06-08%2020-22-17.png)
 
 ### 3. Bot
 Пример работы бота:
+
+![Пример](https://github.com/Ermachok/TGbot_for_posting/blob/main/pictures/Screenshot%20from%202025-06-08%2020-12-01.png)
 
 
 ## Основные команды бота
