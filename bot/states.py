@@ -1,1 +1,5 @@
-POST_CHOICE, POST_VIEW = range(2)
+from enum import Enum, auto
+
+class BotStates(Enum):
+    POST_CHOICE = auto()
+    POST_VIEW = auto()

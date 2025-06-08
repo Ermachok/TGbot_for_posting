@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from handlers import (invalid_input_handler, post_detail_handler,
                       posts_handler, start_handler)
 from middlewares import setup_logging
-from states import POST_CHOICE
+from states import BotStates
 from telegram.ext import (ApplicationBuilder, CallbackQueryHandler,
                           CommandHandler, ConversationHandler, MessageHandler,
                           filters)
@@ -22,7 +22,7 @@ def main():
     post_conv = ConversationHandler(
         entry_points=[CommandHandler("posts", posts_handler)],
         states={
-            POST_CHOICE: [
+            BotStates.POST_CHOICE: [
                 CallbackQueryHandler(post_detail_handler),
                 MessageHandler(filters.TEXT & ~filters.COMMAND, invalid_input_handler),
             ],
