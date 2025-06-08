@@ -20,7 +20,9 @@ async def posts_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def post_detail_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
+
     post_id = int(query.data)
     post = get_post(post_id)
-    await query.edit_message_text(f"*{post['title']}*\n\n{post['content']}", parse_mode="Markdown")
+    await query.edit_message_text(f"*{post['title']}*\n\n{post['content']}\n{post['created_at']}", parse_mode="Markdown")
+
     return ConversationHandler.END
