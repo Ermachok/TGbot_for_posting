@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 
 from app.database.database import Base, SessionLocal, engine
-from app.models.user import User
 from app.models.post import Post
+from app.models.user import User
 from app.utils.security import hash_password
 
 
@@ -14,7 +14,7 @@ def init():
         user = User(username="admin", hashed_password=hash_password("admin123"))
         db.add(user)
 
-        init_post = Post(title='initial test title', content='initial test content')
+        init_post = Post(title="initial test title", content="initial test content")
         db.add(init_post)
 
         db.commit()

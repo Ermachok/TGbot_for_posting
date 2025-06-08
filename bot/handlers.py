@@ -1,10 +1,8 @@
-from telegram import Update
-from telegram.ext import ContextTypes
+from api import get_post, get_posts
 from keyboards import posts_keyboard
-from api import get_posts, get_post
 from states import POST_CHOICE, POST_VIEW
-from telegram.ext import ConversationHandler
-
+from telegram import Update
+from telegram.ext import ContextTypes, ConversationHandler
 
 
 async def start_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -23,6 +21,16 @@ async def post_detail_handler(update: Update, context: ContextTypes.DEFAULT_TYPE
 
     post_id = int(query.data)
     post = get_post(post_id)
-    await query.edit_message_text(f"*{post['title']}*\n\n{post['content']}\n{post['created_at']}", parse_mode="Markdown")
+    await query.edit_message_text(
+        f"*{post['title']}*\n\n{post['content']}\n{post['created_at']}",
+        parse_mode="Markdown",
+    )
 
     return ConversationHandler.END
+
+
+async def invalid_input_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Пожалуйста, выбери пост, используя кнопки ниже. Чтобы начать заново, нажми /posts."
+    )
+    return POST_CHOICE

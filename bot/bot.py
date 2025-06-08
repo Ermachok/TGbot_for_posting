@@ -1,15 +1,17 @@
 import os
+
 from dotenv import load_dotenv
-from telegram.ext import (
-    ApplicationBuilder, CommandHandler,
-    CallbackQueryHandler, ConversationHandler
-)
-from handlers import start_handler, posts_handler, post_detail_handler
+from handlers import (invalid_input_handler, post_detail_handler,
+                      posts_handler, start_handler)
 from middlewares import setup_logging
 from states import POST_CHOICE
+from telegram.ext import (ApplicationBuilder, CallbackQueryHandler,
+                          CommandHandler, ConversationHandler, MessageHandler,
+                          filters)
 
 load_dotenv()
 setup_logging()
+
 
 def main():
     token = os.getenv("TELEGRAM_TOKEN")
@@ -20,13 +22,17 @@ def main():
     post_conv = ConversationHandler(
         entry_points=[CommandHandler("posts", posts_handler)],
         states={
-            POST_CHOICE: [CallbackQueryHandler(post_detail_handler)],
+            POST_CHOICE: [
+                CallbackQueryHandler(post_detail_handler),
+                MessageHandler(filters.TEXT & ~filters.COMMAND, invalid_input_handler),
+            ],
         },
-        fallbacks=[]
+        fallbacks=[],
     )
 
     app.add_handler(post_conv)
 
     app.run_polling()
+
 
 main()

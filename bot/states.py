@@ -1,3 +1,1 @@
 POST_CHOICE, POST_VIEW = range(2)
-
-
